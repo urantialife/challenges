@@ -33,15 +33,25 @@ console.log(peel("Hello there"))
 
 TODO: Some time
 
-## Day 3
+## Daily Challenge #3 - Vowel Counter
+
+[Challenge link](https://dev.to/thepracticaldev/daily-challenge-3-vowel-counter-34ni)
+
+Okay, so this one looks like it could be done pretty easily with regex!
+
+```js
+const countVowels = str => (str.match(/[aeiou]/gi) || "").length
+
+console.log(countVowels("Hello")) // -> 2
+console.log(countVowels("HELLO! WORLD!")) // -> 3
+console.log(countVowels(":( vwls? hmmm nty!")) // -> 0
+```
+
+## Daily Challenge #4 - Checkbook Balancing
 
 TODO: Some time
 
-## Day 4
-
-TODO: Some time
-
-## Day 5
+## Daily Challenge #5 - Ten Minute Walk
 
 [Challenge link](https://dev.to/thepracticaldev/daily-challenge-5-ten-minute-walk-1188)
 
@@ -64,4 +74,32 @@ end
 
 genWalk 10
 # -> ["n", "w", "n", "e", "w", "s", "e", "w", "e", "s"]
+```
+
+## Daily Challenge #6 - Grandma and her friends
+
+[Challenge link](https://dev.to/thepracticaldev/daily-challenge-6-grandma-and-her-friends-23kd)
+
+> NOTE: This challenge was a weird one, lots of peeps noted that there was incomplete data to solve the problem, but I did my best anyway! This solution is to the original way that the question was written, if it changes then this might not be right anymore :(
+
+I'm making the following assumptions, but I think I have a solution:
+- Town X1 is 1 mile from X0, X2 is 2 miles from X0, etc... (otherwise I don't believe there is enough information to come up with a solution)
+- `friendTownList` uses format C (flattened list)
+- the return trip from the last friend's house back to X0 is included in the total
+
+Could be one (ugly) line if not counting error handling in the case where we don't know where a friend lives, could also be smaller if `friendTownList` was a hash to start with~
+
+```ruby
+def getDistance(visitOrder, friendTownList)
+  townHash = Hash[*friendTownList]
+  visitOrder.each {|f| raise "IDK where #{f} lives!" if !townHash.key? f }
+  [0, *visitOrder.map(&proc {|f| townHash[f][1 .. -1].to_i }), 0]
+    .each_cons(2)
+    .map(&proc {|a, b| (a - b).abs })
+    .sum
+end
+
+getDistance(%w(A2 A1 A3), %w(A1 X1 A2 X2 A3 X3))
+# -> 8
+# Because (0, 2[2], 1[1], 3[2], 0[3]) -> 2 + 1 + 2 + 3 = 8
 ```
