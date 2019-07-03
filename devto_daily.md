@@ -8,6 +8,7 @@ My solutions to [Dev.to's Daily challenge series](https://dev.to/thepracticaldev
 
 This is just `string.slice(1, -1)`, just check if it's > length 2 and you're good to go!
 
+Solution in javascript:
 ```js
 
 // Using if:
@@ -26,11 +27,19 @@ console.log(peel("Hello there"))
 // -> ello ther
 ```
 
-## Day 2
+## Daily Challenge #2 - String Diamond
+
+[Challenge link](https://dev.to/thepracticaldev/daily-challenge-2-string-diamond-21n2)
+
+TODO: Some time
 
 ## Day 3
 
+TODO: Some time
+
 ## Day 4
+
+TODO: Some time
 
 ## Day 5
 
@@ -46,6 +55,7 @@ Basically, for each "pair" of blocks you want to walk, either add ["n", "s"] or 
 
 Ruby's proc / block thing still confuses me a little so I'm not sure if this is the most elegant one-liner (excluding checking for even walk length), but ayy it works!
 
+Solution in ruby:
 ```ruby
 def genWalk length
     raise "Walk length must be even!" if length % 2 != 0
