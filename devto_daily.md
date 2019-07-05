@@ -9,17 +9,17 @@ My solutions to [Dev.to's Daily challenge series](https://dev.to/thepracticaldev
 This is just `string.slice(1, -1)`, just check if it's > length 2 and you're good to go!
 
 Solution in javascript:
-```js
 
+```js
 // Using if:
-function peel(string){
-    // Strings with length <= 2 are invalid
-    if(string.length <= 2) return null
-    return string.slice(1, -1)
+function peel(string) {
+	// Strings with length <= 2 are invalid
+	if (string.length <= 2) return null
+	return string.slice(1, -1)
 }
 
 // Using ternary:
-const peel = string => string.length > 2 ? string.slice(1, -1) : null
+const peel = string => (string.length > 2 ? string.slice(1, -1) : null)
 
 console.log(peel("Hi"))
 // -> null
@@ -66,6 +66,7 @@ Basically, for each "pair" of blocks you want to walk, either add ["n", "s"] or 
 Ruby's proc / block thing still confuses me a little so I'm not sure if this is the most elegant one-liner (excluding checking for even walk length), but ayy it works!
 
 Solution in ruby:
+
 ```ruby
 def genWalk length
     raise "Walk length must be even!" if length % 2 != 0
@@ -83,6 +84,7 @@ genWalk 10
 > NOTE: This challenge was a weird one, lots of peeps noted that there was incomplete data to solve the problem, but I did my best anyway! This solution is to the original way that the question was written, if it changes then this might not be right anymore :(
 
 I'm making the following assumptions, but I think I have a solution:
+
 - Town X1 is 1 mile from X0, X2 is 2 miles from X0, etc... (otherwise I don't believe there is enough information to come up with a solution)
 - `friendTownList` uses format C (flattened list)
 - the return trip from the last friend's house back to X0 is included in the total
@@ -102,4 +104,36 @@ end
 getDistance(%w(A2 A1 A3), %w(A1 X1 A2 X2 A3 X3))
 # -> 8
 # Because (0, 2[2], 1[1], 3[2], 0[3]) -> 2 + 1 + 2 + 3 = 8
+```
+
+## Daily Challenge #7 - Factorial Decomposition
+
+[Challenge link](https://dev.to/thepracticaldev/daily-challenge-7-factorial-decomposition-176o)
+
+I'm not great at abstract maths, but here's my solution using a standard library function in ruby:
+
+```ruby
+require 'prime'
+
+def decomp n
+  fact = Math.gamma(n + 1).to_i
+  "n = #{n}; n! = #{fact}; decomp(n!) = #{n == 1 ? "1" : Prime.prime_division(fact).map(&proc {|pair| pair[1] > 1 ? "#{pair[0]}^#{pair[1]}" : pair[0]}).join(" * ")}"
+end
+
+(1..10).each {|x| puts decomp x}
+```
+
+Output:
+
+```
+n = 1; n! = 1; decomp(n!) = 1
+n = 2; n! = 2; decomp(n!) = 2
+n = 3; n! = 6; decomp(n!) = 2 * 3
+n = 4; n! = 24; decomp(n!) = 2^3 * 3
+n = 5; n! = 120; decomp(n!) = 2^3 * 3 * 5
+n = 6; n! = 720; decomp(n!) = 2^4 * 3^2 * 5
+n = 7; n! = 5040; decomp(n!) = 2^4 * 3^2 * 5 * 7
+n = 8; n! = 40320; decomp(n!) = 2^7 * 3^2 * 5 * 7
+n = 9; n! = 362880; decomp(n!) = 2^7 * 3^4 * 5 * 7
+n = 10; n! = 3628800; decomp(n!) = 2^8 * 3^4 * 5^2 * 7
 ```
